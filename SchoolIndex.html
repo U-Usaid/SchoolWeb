@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<style>
+    .content {
+        text-align: center;
+        padding: 30px;
+        margin: 0px auto;
+    }
+
+    .details {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
+    table,
+    th,
+    td {
+        border-collapse: collapse;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        padding: 10px;
+        border: 2px solid rgb(233, 152, 53);
+    }
+
+    table{
+        border-radius: 10px;
+    }
+</style>
+
+<head>
+
+    <title>SchoolOWL</title>
+
+</head>
+
+
+
+<body style="background-color: antiquewhite;">
+
+
+    <p>Filled The Table:</p>
+
+
+    <div class="content">
+        <h2>Users</h2>
+        <div class="details" >
+            <table style="border-radius: 10px;"id="content">
+                    <tr>
+                       <td> image</td>
+                        <td>Full Name</td>
+                        <td>Age</td>
+                        <td>Gender</td>
+                        <td>Location</td>
+                        <td>Country</td>
+                    </tr>           
+                </table>
+        </div>
+    </div>
+
+    <script>
+        const api_url = "https://randomuser.me/api/";
+        async function getUser() {
+            for(i = 0; i<10; i++) {
+                document.getElementById("content").innerHTML += "<tr><td><span id=\"thumbnail"+i+"\"></span></td><td><span id=\"fullname"+i+"\"></span></td><td><span id=\"age"+i+"\"></span></td><td><span id=\"gender"+i+"\"></span></td><td><span id=\"location"+i+"\"></span></td><td><span id=\"country"+i+"\"></span></td></tr>";     
+            }
+            for (i = 0; i<10; i++) {
+            //making a call to API
+            const response = await fetch(api_url);
+            // converting it to JSON format
+            const data = await response.json();
+            // getting data/information from JSON
+            const user = data.results[0];
+            let { first, last } = user.name;
+            let { gender, email, phone } = user;
+            let age = user.dob.age;
+            let { city, state, country } = user.location;
+            let fullName = first + " " + last;
+            let thumbnail = user.picture.thumbnail;
+            // getting access to the span container
+            document.querySelector("#thumbnail"+i).innerHTML ="<img src=" + thumbnail+ ">";
+            document.querySelector("#fullname"+i).textContent = fullName;
+            document.querySelector("#age"+i).textContent = age;
+            document.querySelector("#gender"+i).textContent = gender;
+            document.querySelector("#location"+i).textContent = city + ", " + state;
+            document.querySelector("#country"+i).textContent = country;
+            }
+        }
+        // Calling the getUser() function
+        getUser();
+    </script>
+
+
+
+
+
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
